@@ -1,0 +1,731 @@
+@import "tailwindcss";
+
+@keyframes cutInPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) translateY(24px);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.06) translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.92) translateY(-15px);
+  }
+}
+
+@keyframes handDrawInSelf {
+  0% {
+    opacity: 0;
+    transform: translateX(58px) translateY(-14px) scale(0.84) rotate(7deg);
+    filter: brightness(1.4) drop-shadow(0 0 18px rgba(251, 191, 36, 0.95));
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(-4px) translateY(-4px) scale(1.05) rotate(-1deg);
+    filter: brightness(1.18) drop-shadow(0 0 16px rgba(251, 191, 36, 0.78));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes handDrawInOpp {
+  0% {
+    opacity: 0;
+    transform: translateX(48px) translateY(12px) scale(0.84) rotate(-7deg);
+    filter: brightness(1.4) drop-shadow(0 0 16px rgba(251, 191, 36, 0.92));
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(-3px) translateY(2px) scale(1.06) rotate(1deg);
+    filter: brightness(1.18) drop-shadow(0 0 12px rgba(251, 191, 36, 0.75));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes swordSlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-35deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.35) rotate(12deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5) rotate(15deg);
+  }
+}
+
+/* Đòn tấn công YugiH5: Lùi lại lấy đà -> Lao nhanh tới mục tiêu -> Giật nhẹ & Trở về ô */
+@keyframes cardAttackStrikeReturn {
+  0% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  23% {
+    opacity: 1;
+    transform: translate3d(var(--atk-recoil-x, 0px), var(--atk-recoil-y, 32px), 0)
+      scale(0.92) rotate(var(--atk-tilt, -4deg));
+    filter: brightness(1.35) drop-shadow(0 0 18px rgba(251, 191, 36, 0.9));
+  }
+  31% {
+    opacity: 1;
+    transform: translate3d(var(--atk-recoil-x, 0px), var(--atk-recoil-y, 32px), 0)
+      scale(0.89) rotate(var(--atk-tilt, -4deg));
+    filter: brightness(1.5) drop-shadow(0 0 24px rgba(239, 68, 68, 0.95));
+  }
+  47% {
+    opacity: 1;
+    transform: translate3d(
+        calc(var(--atk-dx, 0px) * 0.88),
+        calc(var(--atk-dy, -220px) * 0.88),
+        0
+      )
+      scale(1.18) rotate(0deg);
+    filter: brightness(1.55) drop-shadow(0 0 32px rgba(251, 191, 36, 1));
+  }
+  56% {
+    opacity: 1;
+    transform: translate3d(
+        calc(var(--atk-dx, 0px) * 0.77),
+        calc(var(--atk-dy, -220px) * 0.77),
+        0
+      )
+      scale(1.07) rotate(0deg);
+    filter: brightness(1.25);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+}
+
+/* Đòn tấn công mà lá bài tấn công cũng bị tiêu diệt (đồng quy vu tận / húc quái mạnh hơn) */
+@keyframes cardAttackStrikeDestroy {
+  0% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  23% {
+    opacity: 1;
+    transform: translate3d(var(--atk-recoil-x, 0px), var(--atk-recoil-y, 32px), 0)
+      scale(0.92) rotate(var(--atk-tilt, -4deg));
+    filter: brightness(1.35) drop-shadow(0 0 18px rgba(251, 191, 36, 0.9));
+  }
+  31% {
+    opacity: 1;
+    transform: translate3d(var(--atk-recoil-x, 0px), var(--atk-recoil-y, 32px), 0)
+      scale(0.89) rotate(var(--atk-tilt, -4deg));
+  }
+  47% {
+    opacity: 1;
+    transform: translate3d(
+        calc(var(--atk-dx, 0px) * 0.88),
+        calc(var(--atk-dy, -220px) * 0.88),
+        0
+      )
+      scale(1.16) rotate(0deg);
+    filter: brightness(1.7);
+  }
+  62% {
+    opacity: 1;
+    transform: translate3d(
+        calc(var(--atk-dx, 0px) * 0.72),
+        calc(var(--atk-dy, -220px) * 0.72),
+        0
+      )
+      scale(1.04) rotate(6deg);
+    filter: brightness(2) saturate(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(
+        calc(var(--atk-dx, 0px) * 0.65),
+        calc(var(--atk-dy, -220px) * 0.65),
+        0
+      )
+      scale(1.32) rotate(12deg);
+    filter: brightness(2.5) saturate(0) blur(3px);
+  }
+}
+
+/* Quái mục tiêu bị tiêu diệt: Chờ va chạm -> Rung chớp sáng -> Vỡ tan */
+@keyframes defenderShatterOut {
+  0%, 40% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: brightness(1);
+  }
+  46% {
+    opacity: 1;
+    transform: translate3d(-9px, 0, 0) scale(1.06) rotate(-3deg);
+    filter: brightness(2.2) contrast(1.4);
+  }
+  53% {
+    opacity: 1;
+    transform: translate3d(9px, -2px, 0) scale(1.08) rotate(3deg);
+    filter: brightness(2) saturate(0.4) drop-shadow(0 0 24px rgba(239, 68, 68, 1));
+  }
+  65% {
+    opacity: 0.85;
+    transform: translate3d(-4px, 2px, 0) scale(1.12);
+    filter: brightness(1.6) saturate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0) scale(1.28) rotate(6deg);
+    filter: brightness(2.4) saturate(0) blur(4px);
+  }
+}
+
+/* Dải năng lượng tia lao từ quái đánh sang mục tiêu */
+@keyframes strikeBeamSweep {
+  0%, 24% {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+  35% {
+    opacity: 0.95;
+  }
+  52% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Nhát chém ánh sáng tại điểm va chạm */
+@keyframes impactSlashBeam {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--slash-rot, -38deg)) scaleX(0.15) scaleY(1.8);
+  }
+  20% {
+    opacity: 1;
+    transform: rotate(var(--slash-rot, -38deg)) scaleX(1.15) scaleY(1.2);
+  }
+  60% {
+    opacity: 0.9;
+    transform: rotate(var(--slash-rot, -38deg)) scaleX(1.3) scaleY(0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--slash-rot, -38deg)) scaleX(1.55) scaleY(0.1);
+  }
+}
+
+/* Vụ nổ chớp sáng tại điểm va chạm */
+@keyframes impactCoreFlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+
+/* Mảnh tia lửa văng ra 8 hướng */
+@keyframes sparkBurstOut {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--spark-x, 40px), var(--spark-y, -40px), 0) scale(0.2);
+  }
+}
+
+/* Rung nhẹ toàn bộ bàn đấu khi đòn đánh trúng đích */
+@keyframes boardImpactJolt {
+  0%, 38%, 100% { transform: translate3d(0, 0, 0); }
+  43% { transform: translate3d(-4px, 3px, 0); }
+  49% { transform: translate3d(4px, -3px, 0); }
+  55% { transform: translate3d(-2px, 2px, 0); }
+  61% { transform: translate3d(2px, -1px, 0); }
+}
+
+/* Nền lưới 3D chuyển động từ từ & hào quang tinh vân */
+@keyframes bgGridDrift {
+  0% {
+    background-position: 0% 0%, 0px 0px, 0px 0px;
+  }
+  100% {
+    background-position: 0% 0%, 0px 46px, 0px 46px;
+  }
+}
+
+@keyframes nebulaBreathe {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes orbitSpinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes emberFloatUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.6);
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ember-drift, 24px), -140px, 0) scale(1.1);
+  }
+}
+
+@keyframes boardHoloSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-110%) skewX(-22deg);
+  }
+  15% {
+    opacity: 0.65;
+  }
+  42% {
+    opacity: 0.65;
+  }
+  55%, 100% {
+    opacity: 0;
+    transform: translateX(220%) skewX(-22deg);
+  }
+}
+
+@keyframes horizonPulseFlow {
+  0% {
+    transform: scaleX(0.35);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scaleX(0.35);
+    opacity: 0.35;
+  }
+}
+
+@keyframes targetHitShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px) scale(1.08); }
+  40% { transform: translateX(10px) scale(1.08); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+
+@keyframes floatLpPopup {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.7);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.2);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-18px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-36px) scale(0.9);
+  }
+}
+
+@keyframes cardPlaceSlamSelf {
+  0% {
+    opacity: 0;
+    transform: translateY(95px) scale(1.55) rotate(-6deg);
+    filter: brightness(1.8);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-6px) scale(0.94) rotate(0deg);
+    filter: brightness(1.3);
+  }
+  75% {
+    transform: translateY(2px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes cardPlaceSlamOpp {
+  0% {
+    opacity: 0;
+    transform: translateY(-85px) scale(1.55) rotate(6deg);
+    filter: brightness(1.8);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(6px) scale(0.94) rotate(0deg);
+    filter: brightness(1.3);
+  }
+  75% {
+    transform: translateY(-2px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes shockwaveRing {
+  0% {
+    opacity: 0.95;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+@keyframes cornerToastIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-22px) scale(0.92);
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+
+@keyframes cyberGridScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 46px, 0);
+  }
+}
+
+/* Hộp trình chiếu chuỗi Chain ở giữa màn hình */
+@keyframes chainShowcaseIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.84) translateY(16px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mũi tên nối các lá trong chuỗi Chain nhấp nháy truyền lực */
+@keyframes chainArrowPulse {
+  0%, 100% {
+    opacity: 0.72;
+    transform: translateX(0px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px) scale(1.07);
+  }
+}
+
+/* Con dấu BỊ VÔ HIỆU đóng sầm vào lá bài bị Handtrap / Counter Trap phá */
+@keyframes negateStampSlam {
+  0% {
+    opacity: 0;
+    transform: scale(2.1) rotate(-16deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.95) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-6deg);
+  }
+}
+
+@keyframes pickerOverlayIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pickerHaloPulse {
+  0%, 100% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@layer utilities {
+  .animate-chain-showcase {
+    animation: chainShowcaseIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-chain-arrow {
+    animation: chainArrowPulse 1.3s ease-in-out infinite;
+  }
+
+  .animate-negate-stamp {
+    animation: negateStampSlam 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+  }
+  .animate-cut-in {
+    animation: cutInPop 1.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-corner-toast {
+    animation: cornerToastIn 1.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-hand-draw-self {
+    animation: handDrawInSelf 0.58s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-hand-draw-opp {
+    animation: handDrawInOpp 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-sword-slash {
+    animation: swordSlash 1.15s ease-out forwards;
+  }
+
+  .animate-hit-shake {
+    animation: targetHitShake 0.65s ease-in-out;
+  }
+
+  .animate-hit-shake-delayed {
+    animation: targetHitShake 0.48s ease-in-out 0.38s;
+  }
+
+  .animate-card-strike-return {
+    animation: cardAttackStrikeReturn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-card-strike-destroy {
+    animation: cardAttackStrikeDestroy 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-defender-shatter {
+    animation: defenderShatterOut 0.88s ease-out forwards;
+  }
+
+  .animate-strike-beam {
+    animation: strikeBeamSweep 0.85s ease-out forwards;
+  }
+
+  .animate-impact-slash {
+    animation: impactSlashBeam 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+  }
+
+  .animate-impact-flash {
+    animation: impactCoreFlash 0.45s ease-out 0.38s both;
+  }
+
+  .animate-spark-burst {
+    animation: sparkBurstOut 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.39s both;
+  }
+
+  .animate-impact-ring {
+    animation: shockwaveRing 0.56s ease-out 0.38s both;
+  }
+
+  .animate-board-impact {
+    animation: boardImpactJolt 0.9s ease-out;
+  }
+
+  .animate-cyber-grid {
+    animation: cyberGridScroll 4.5s linear infinite;
+  }
+
+  .animate-nebula-breathe {
+    animation: nebulaBreathe 8s ease-in-out infinite;
+  }
+
+  .animate-orbit-slow {
+    animation: orbitSpinSlow 52s linear infinite;
+  }
+
+  .animate-orbit-reverse {
+    animation: orbitSpinReverse 38s linear infinite;
+  }
+
+  .animate-ember-float {
+    animation: emberFloatUp var(--ember-dur, 10s) linear var(--ember-delay, 0s) infinite;
+  }
+
+  .animate-board-holo-sweep {
+    animation: boardHoloSweep 8.5s ease-in-out infinite;
+  }
+
+  .animate-horizon-flow {
+    animation: horizonPulseFlow 3.4s ease-in-out infinite;
+  }
+
+  .animate-lp-popup {
+    animation: floatLpPopup 1.6s ease-out forwards;
+  }
+
+  .animate-place-self {
+    animation: cardPlaceSlamSelf 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-place-opp {
+    animation: cardPlaceSlamOpp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-shockwave {
+    animation: shockwaveRing 0.7s ease-out forwards;
+  }
+
+  /* Nền không gian 3D sâu kiểu YugiH5 (lưới động được render riêng bằng layer GPU mượt) */
+  .yugih5-bg {
+    background-color: #0f0d1f;
+    background-image:
+      radial-gradient(ellipse at 50% 42%, rgba(108, 66, 185, 0.34) 0%, rgba(12, 10, 26, 0.98) 74%);
+  }
+
+  .yugih5-cyber-grid {
+    background-image:
+      linear-gradient(to right, rgba(130, 120, 215, 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(130, 120, 215, 0.14) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+
+  /* Bàn đấu nghiêng 2.5D cân chính giữa màn hình (không bị lệch về phía người chơi) */
+  .yugih5-perspective-wrapper {
+    perspective: 1200px;
+  }
+
+  .yugih5-board-plane {
+    transform: rotateX(18deg) translateY(-20px) scale(0.99);
+    transform-origin: center 44%;
+    background: linear-gradient(
+      180deg,
+      rgba(16, 17, 36, 0.92) 0%,
+      rgba(22, 21, 46, 0.94) 50%,
+      rgba(16, 17, 36, 0.96) 100%
+    );
+    border: 2px solid rgba(185, 165, 235, 0.46);
+    box-shadow:
+      0 26px 65px rgba(0, 0, 0, 0.9),
+      0 0 42px rgba(105, 80, 220, 0.28),
+      inset 0 0 60px rgba(75, 58, 155, 0.3);
+  }
+
+  @media (max-height: 780px) {
+    .yugih5-board-plane {
+      transform: rotateX(18deg) translateY(-22px) scale(0.92);
+    }
+  }
+
+  /* Hào quang vàng rực cho lá bài trên tay có thể kích hoạt/triệu hồi */
+  .yugih5-card-glow {
+    box-shadow:
+      0 0 14px 3px rgba(255, 215, 70, 0.85),
+      0 0 28px 6px rgba(255, 165, 0, 0.45);
+  }
+
+  .animate-picker-in {
+    animation: pickerOverlayIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-picker-halo {
+    animation: pickerHaloPulse 3.2s ease-in-out infinite;
+  }
+
+  .yugih5-picker-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(125, 211, 252, 0.55) rgba(15, 23, 42, 0.4);
+  }
+
+  .yugih5-picker-scroll::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  .yugih5-picker-scroll::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.45);
+    border-radius: 9999px;
+  }
+
+  .yugih5-picker-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(251, 191, 36, 0.65));
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .yugih5-picker-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.85), rgba(251, 191, 36, 0.9));
+  }
+}
